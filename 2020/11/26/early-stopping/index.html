@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Cecilia Blog">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://roofkitty.github.io//img/front-page.jpeg">
+    <meta property="twitter:image" content="https://roofkitty.github.io//img/front-page.jpeg" />
+    
+
+    
+    <meta name="title" content="How does early stopping affect A/B experiment?" />
+    <meta property="og:title" content="How does early stopping affect A/B experiment?" />
+    <meta property="twitter:title" content="How does early stopping affect A/B experiment?" />
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="" />
+    <meta property="twitter:description" content="" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="桃李不言, Cecilia, Blog, 博客, Data Scientist, Machine Learning, ML, Travel, Foodie">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>How does early stopping affect A/B experiment?-桃李不言的博客 | Cecilia&#39;s Blog</title>
+
+    <link rel="canonical" href="/2020/11/26/early-stopping/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cecilia Blog</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/books">books</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/data-science">data-science</a>
+                        </li>
+                        
+                    
+                    
+		    
+
+                    
+		    <li>
+                        <a href="/search">SEARCH <img src="/img/search.png" height="15" style="cursor: pointer;" alt="Search"></a>
+		    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/in-post/early-stopping.jpg')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/a/b-testing" title="A/B testing">
+                            A/B testing
+                        </a>
+                        
+                    </div>
+                    <h1>How does early stopping affect A/B experiment?</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                            Cecilia
+                         
+                        on 
+                        Thursday, November 26, 2020
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents"></nav>
+                
+                <!-- raw HTML omitted -->
+<p>In the tech industry, we use controlled experiments to learn and make decisions at every step of product development, from design to algorithms. When the experiment is about a single change, such as changing the layout of the UI or using a different machine learning algorithm, the methodology is often called A/B testing. While is all fashionable and new to use A/B testing, the technique behind the scene, hypothesis testing, has been around for a long time. (The famous story <a href="https://en.wikipedia.org/wiki/Lady_tasting_tea">lady testing tea</a> was in 1935)</p>
+<p>A very important question in A/B testing is how much time you need to make a conclusion about the results of an experiment. That is often determined before the experiment. A common question I, as a data scientist, often get from software engineers and business partners is can we continuously monitor the p-value and declare victory whenever it is below 0.05?</p>
+<p>The short answer is No. In this post, we will look into why early stopping is a bad idea and how it affects A/B testing.</p>
+<p>Let&rsquo;s say we are running an experiment where there is no difference between the control group (A) and the experiment group (B). To see how the p-value changes as we collect more data, we will compute the p-value every 10 data points.</p>
+<p>
+  <img src="/in-post/early-stopping/continuous_monitoring_p_value.png" alt="continuous_monitoring_p_value">
+
+</p>
+<p>The p-value varies over time and stabilize when we collects more data</p>
+<p>As you can see, the p-value fluctuates between 0 and 1 and it even dips below 0.05 in the beginning. If we set up a rule for early stopping, i.e. stop the experiment and declare victory whenever the p-value is below 0.05, we will end up with a false positive.</p>
+<p>Let&rsquo;s take a step back and refresh our memory on the p-value. The definition of p-value is the probability of obtaining a test statistic that is as or more extreme than the observed one, assuming the null hypothesis is true. When we set our alpha to 0.05 and reject the null hypothesis when the p-value is below 0.05, we want the probability of a type I error, or a false positive, to be less than 5%.</p>
+<p>
+  <img src="/in-post/early-stopping/confidence_level_no_early_stopping.png" alt="early_stopping/confidence_level_no_early_stopping.png">
+
+</p>
+<p>We repeat the aforementioned experiment 10000 times and calculate the p-value at the end of each experiment. 4.85% of the experiment observes the p-value smaller than 0.05.</p>
+<p>When we monitor the p-value continuously, we actually conduct multiple hypothesis testings. Each time we calculate a p-value, we have a 5% chance to get a false positive. In the simulation below, we run the aforementioned experiment 10000 times again. This time we will compute the p-value every 10 data points and declare victory when the p-value is below 0.05. The overall type I error increased from 4.85% to 37.87%!</p>
+<p>
+  <img src="/in-post/early-stopping/confidence_level_early_stopping.png" alt="confidence_level_early_stopping">
+
+</p>
+<p>With early stopping, type I error increases from 5% to 37.87%</p>
+<p>Typically, when we conduct multiple comparisons, we commonly used Bonferroni correction to control the overall false-positive rate, i.e reduce alpha to alpha/# of hypothesis tests.</p>
+<p>
+  <img src="/in-post/early-stopping/confidence_level_early_stopping_bonferroni.png" alt="confidence_level_early_stopping_Bonferroni">
+
+</p>
+<p>With Bonferroni correction, type I error is now back to 5%.</p>
+<p>What will happen to the Power of the experiment? Power is the probability that we can detect the difference when it is indeed different. Normally the larger the difference, the easier and less data we need to detect it.</p>
+<p>
+  <img src="/in-post/early-stopping/power.png" alt="power">
+
+</p>
+<p>While using Bonferroni correction achieves a type I error of 5%, it reduces the power of the experiment, meaning it will be much harder to detect the difference when there is one.</p>
+<p>In the post, we talk about why early stopping an experiment is a bad idea. The best practice in A/B testing is to determine the minimum effect size of the treatment and how long to run the experiment before you start the experiment. In reality, the problem is that we often don’t have a good idea of the effect size of the treatment. It could be a bigger success than expected and it will be a huge loss by not launching it earlier. Or the experiment may introduce a bug and we should stop it early before more customers are affected. If the hypothesis test is on ratios, such as CTR or conversation rate, <a href="https://en.wikipedia.org/wiki/Sequential_probability_ratio_test">SPRT</a> can be a solution.</p>
+
+
+                
+                
+<div class="entry-shang text-center">
+    
+	    <p>「真诚赞赏，手留余香」</p>
+	
+	<button class="zs show-zs btn btn-bred">赞赏支持</button>
+</div>
+<div class="zs-modal-bg"></div>
+<div class="zs-modal-box">
+	
+	<div class="zs-modal-body">
+		<img src="/img/reward/wechat-reward-qrcode.jpg"  id="pay-image"/>
+		
+		
+	</div>
+	
+</div>
+<script type="text/javascript" src="/js/reward.js"></script>
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/11/03/the-element-of-style/" data-toggle="tooltip" data-placement="top" title="Notes | The Element of Style">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+                <section>
+                    <hr>
+                    <h5>FRIENDS</h5>
+                    <ul class="list-inline">
+                        
+                    </ul>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:cecilia.cheng0210@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Cecilia Blog 2020
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

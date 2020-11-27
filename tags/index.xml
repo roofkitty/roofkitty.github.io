@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Cecilia Blog</title>
+    <link>https://roofkitty.github.io/tags/</link>
+    <description>Recent content in Tags on Cecilia Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Nov 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://roofkitty.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>writing</title>
+      <link>https://roofkitty.github.io/tags/writing/</link>
+      <pubDate>Sun, 03 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://roofkitty.github.io/tags/writing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A/B testing</title>
+      <link>https://roofkitty.github.io/tags/a/b-testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://roofkitty.github.io/tags/a/b-testing/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
