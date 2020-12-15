@@ -112,7 +112,19 @@
   </url>
   
   <url>
+    <loc>https://roofkitty.github.io/top/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://roofkitty.github.io/top/books/</loc>
+  </url>
+  
+  <url>
     <loc>https://roofkitty.github.io/search/</loc>
+  </url>
+  
+  <url>
+    <loc>https://roofkitty.github.io/top/</loc>
   </url>
   
 </urlset>
