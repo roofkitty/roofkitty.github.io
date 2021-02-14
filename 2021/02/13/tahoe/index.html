@@ -15,15 +15,15 @@
     
 
     
-    <meta name="title" content="How does early stopping affect A/B experiment?" />
-    <meta property="og:title" content="How does early stopping affect A/B experiment?" />
-    <meta property="twitter:title" content="How does early stopping affect A/B experiment?" />
+    <meta name="title" content="No-Ski Winter Getaway in Tahoe" />
+    <meta property="og:title" content="No-Ski Winter Getaway in Tahoe" />
+    <meta property="twitter:title" content="No-Ski Winter Getaway in Tahoe" />
     
 
     
-    <meta name="description" content="In the tech industry, we use controlled experiments to learn and make decisions at every step of product development, from design to algorithms. A common question I, as a data scientist, often get from software engineers and business partners is can we continuously monitor the p-value and declare victory whenever it is below 0.05? ">
-    <meta property="og:description" content="In the tech industry, we use controlled experiments to learn and make decisions at every step of product development, from design to algorithms. A common question I, as a data scientist, often get from software engineers and business partners is can we continuously monitor the p-value and declare victory whenever it is below 0.05? " />
-    <meta property="twitter:description" content="In the tech industry, we use controlled experiments to learn and make decisions at every step of product development, from design to algorithms. A common question I, as a data scientist, often get from software engineers and business partners is can we continuously monitor the p-value and declare victory whenever it is below 0.05? " />
+    <meta name="description" content="太浩湖是全美最大的高山湖，也是世界上最洁净的湖之一。三百万年前的地址曾断裂，陆地板块上下运动，上升的板块形成了周围Carson山脉和Nevada山脉，下降的板块在两大山脉中间形成太浩湖。它的洁净来自于三方面：它周围的花岗岩颗粒不会分解成细小的沙粒导致水体浑浊；大部分的降水直接落入湖中，没有受到污染；湖水的生态系统并不富含养分，因此不适宜藻类生长。如此的洁净度，走在太浩湖的沙滩上，若不是阵阵冷风，一瞬间我仿佛觉得走在夏威夷的海边。">
+    <meta property="og:description" content="太浩湖是全美最大的高山湖，也是世界上最洁净的湖之一。三百万年前的地址曾断裂，陆地板块上下运动，上升的板块形成了周围Carson山脉和Nevada山脉，下降的板块在两大山脉中间形成太浩湖。它的洁净来自于三方面：它周围的花岗岩颗粒不会分解成细小的沙粒导致水体浑浊；大部分的降水直接落入湖中，没有受到污染；湖水的生态系统并不富含养分，因此不适宜藻类生长。如此的洁净度，走在太浩湖的沙滩上，若不是阵阵冷风，一瞬间我仿佛觉得走在夏威夷的海边。" />
+    <meta property="twitter:description" content="太浩湖是全美最大的高山湖，也是世界上最洁净的湖之一。三百万年前的地址曾断裂，陆地板块上下运动，上升的板块形成了周围Carson山脉和Nevada山脉，下降的板块在两大山脉中间形成太浩湖。它的洁净来自于三方面：它周围的花岗岩颗粒不会分解成细小的沙粒导致水体浑浊；大部分的降水直接落入湖中，没有受到污染；湖水的生态系统并不富含养分，因此不适宜藻类生长。如此的洁净度，走在太浩湖的沙滩上，若不是阵阵冷风，一瞬间我仿佛觉得走在夏威夷的海边。" />
     
 
     
@@ -34,9 +34,9 @@
     <meta name="keyword"  content="桃李不言, Cecilia, Blog, 博客, Data Scientist, Machine Learning, ML, Travel, Foodie">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>How does early stopping affect A/B experiment?-🐈Cecilia&#39;s Blog|桃李不言的博客🐈</title>
+    <title>No-Ski Winter Getaway in Tahoe-🐈Cecilia&#39;s Blog|桃李不言的博客🐈</title>
 
-    <link rel="canonical" href="/2020/11/26/early-stopping/">
+    <link rel="canonical" href="/2021/02/13/tahoe/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -159,7 +159,7 @@
 
 <style type="text/css">
     header.intro-header {
-        background-image: url('/in-post/early-stopping.jpg')
+        background-image: url('https://raw.githubusercontent.com/roofkitty/blog_images/master/7.jpg')
     }
 </style>
 <header class="intro-header">
@@ -169,20 +169,20 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/ab-testing" title="ab-testing">
-                            ab-testing
+                        <a class="tag" href="/tags/tahoe" title="tahoe">
+                            tahoe
                         </a>
                         
                     </div>
-                    <h1>How does early stopping affect A/B experiment?</h1>
-                    <h2 class="subheading"></h2>
+                    <h1>No-Ski Winter Getaway in Tahoe</h1>
+                    <h2 class="subheading">不滑雪的冬日太浩湖之旅</h2>
                     <span class="meta">
                         Posted by 
                         
                             Cecilia（桃李不言）
                          
                         on 
-                        Thursday, November 26, 2020
+                        Saturday, February 13, 2021
                         
                         
                         
@@ -207,42 +207,91 @@
                 post-container">
 
                 
-                <!-- raw HTML omitted -->
-<p>In the tech industry, we use controlled experiments to learn and make decisions at every step of product development, from design to algorithms. When the experiment is about a single change, such as changing the layout of the UI or using a different machine learning algorithm, the methodology is often called A/B testing. While is all fashionable and new to use A/B testing, the technique behind the scene, hypothesis testing, has been around for a long time. (The famous story <a href="https://en.wikipedia.org/wiki/Lady_tasting_tea">lady testing tea</a> was in 1935)</p>
-<p>A very important question in A/B testing is how much time you need to make a conclusion about the results of an experiment. That is often determined before the experiment. A common question I, as a data scientist, often get from software engineers and business partners is can we continuously monitor the p-value and declare victory whenever it is below 0.05?</p>
-<p>The short answer is No. In this post, we will look into why early stopping is a bad idea and how it affects A/B testing.</p>
-<p>Let&rsquo;s say we are running an experiment where there is no difference between the control group (A) and the experiment group (B). To see how the p-value changes as we collect more data, we will compute the p-value every 10 data points.</p>
-<p>
-  <img src="/in-post/early-stopping/continuous_monitoring_p_value.png" alt="continuous_monitoring_p_value">
+                <p>原本计划在去年夏天的结婚纪念日之旅因为各种各样的原因一直在往后推。最近趁着春节、生日都集中在一周，我们索性来一次冬日太浩湖之旅。我和家属对滑雪都没有太大的兴趣，出发之前还有点小担忧—冬天来太浩湖不滑雪，会不会特别无聊。定好行程之后，家属又阴差阳错地在这周入职新公司。Ｏnboarding第一周不好请假，我们的行程也就比较松散，只能趁着上班之前和没有会的下午出门。即使如此—对滑雪没有兴趣，半工作半休闲的松散行程安排—也可以有一个超级开心、超级refreshing的三天假期。</p>
+<h2 id="出发清洁准备住宿推荐">出发，清洁准备，住宿推荐</h2>
+<p>从湾区开来Tahoe要4个小时，算是一个比较短的车程，不需要像上次开去西雅图那样提前准备便当、制定路线寻找安全的休息站。我们5点左右出发，中间在Sacramento停一下买了个晚饭。虽然这次租了独栋的小木屋，我们还是有一些做了一些额外的准备：自带床单被套枕头浴巾，进屋立刻开窗通风，并且用消毒湿巾擦拭所有我们会接触的地方。</p>
+<p>我们这次选择了位于太浩湖的北边 Tahoe Vista 的 。全程无接触入住，而且他们保证两次入住之间有24到72小时的间隔。（为了确保他们真地实施了，我们还去检查了我们入住前后一段时间的availability。Cedar把我们入住前后3天都block住了。）Cedar Glen Lodge的工作人员也特别得友好，我们的行程因为各种各样的原因一改再改，他们都接受了。</p>
+<p>Tahoe Vista 附近的能租的独栋小木屋有很多。相比于South Lake Tahoe的热闹、嘈杂、人头攒动，北边真的安静、人烟稀少很多。如果你像我一样，不想在特殊时期扎堆赶热闹，强烈推荐搜索Tahoe Vista 附近的小木屋。</p>
+<h2 id="太浩雪景">太浩雪景</h2>
+<p>青山、绿水、白雪，我选择度假目的地的时候一定要包含其中之一。冬日的太浩湖完美地将这三者结合在一起，漫步在沙滩上，一侧是万树松罗万朵云，一侧是绿水悠悠天杳杳。</p>
 
-</p>
-<p>The p-value varies over time and stabilize when we collects more data</p>
-<p>As you can see, the p-value fluctuates between 0 and 1 and it even dips below 0.05 in the beginning. If we set up a rule for early stopping, i.e. stop the experiment and declare victory whenever the p-value is below 0.05, we will end up with a false positive.</p>
-<p>Let&rsquo;s take a step back and refresh our memory on the p-value. The definition of p-value is the probability of obtaining a test statistic that is as or more extreme than the observed one, assuming the null hypothesis is true. When we set our alpha to 0.05 and reject the null hypothesis when the p-value is below 0.05, we want the probability of a type I error, or a false positive, to be less than 5%.</p>
-<p>
-  <img src="/in-post/early-stopping/confidence_level_no_early_stopping.png" alt="early_stopping/confidence_level_no_early_stopping.png">
 
-</p>
-<p>We repeat the aforementioned experiment 10000 times and calculate the p-value at the end of each experiment. 4.85% of the experiment observes the p-value smaller than 0.05.</p>
-<p>When we monitor the p-value continuously, we actually conduct multiple hypothesis testings. Each time we calculate a p-value, we have a 5% chance to get a false positive. In the simulation below, we run the aforementioned experiment 10000 times again. This time we will compute the p-value every 10 data points and declare victory when the p-value is below 0.05. The overall type I error increased from 4.85% to 37.87%!</p>
-<p>
-  <img src="/in-post/early-stopping/confidence_level_early_stopping.png" alt="confidence_level_early_stopping">
+ <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/1.jpg" id="image" /> 
+ </div>
 
-</p>
-<p>With early stopping, type I error increases from 5% to 37.87%</p>
-<p>Typically, when we conduct multiple comparisons, we commonly used Bonferroni correction to control the overall false-positive rate, i.e reduce alpha to alpha/# of hypothesis tests.</p>
-<p>
-  <img src="/in-post/early-stopping/confidence_level_early_stopping_bonferroni.png" alt="confidence_level_early_stopping_Bonferroni">
 
-</p>
-<p>With Bonferroni correction, type I error is now back to 5%.</p>
-<p>What will happen to the Power of the experiment? Power is the probability that we can detect the difference when it is indeed different. Normally the larger the difference, the easier and less data we need to detect it.</p>
-<p>
-  <img src="/in-post/early-stopping/power.png" alt="power">
+<style type="text/css">
+    #image {width: 85%; }
+    #text { text-align: center; color: grey; font-size: small}    
+</style>
+<p>太浩湖是全美最大的高山湖，也是世界上最洁净的湖之一。三百万年前的地址曾断裂，陆地板块上下运动，上升的板块形成了周围Carson山脉和Nevada山脉，下降的板块在两大山脉中间形成太浩湖。它的洁净来自于三方面：它周围的花岗岩颗粒不会分解成细小的沙粒导致水体浑浊；大部分的降水直接落入湖中，没有受到污染；湖水的生态系统并不富含养分，因此不适宜藻类生长。如此的洁净度，走在太浩湖的沙滩上，若不是阵阵冷风，一瞬间我仿佛觉得走在夏威夷的海边。</p>
 
-</p>
-<p>While using Bonferroni correction achieves a type I error of 5%, it reduces the power of the experiment, meaning it will be much harder to detect the difference when there is one.</p>
-<p>In the post, we talk about why early stopping an experiment is a bad idea. The best practice in A/B testing is to determine the minimum effect size of the treatment and how long to run the experiment before you start the experiment. In reality, the problem is that we often don’t have a good idea of the effect size of the treatment. It could be a bigger success than expected and it will be a huge loss by not launching it earlier. Or the experiment may introduce a bug and we should stop it early before more customers are affected. If the hypothesis test is on ratios, such as CTR or conversation rate, <a href="https://en.wikipedia.org/wiki/Sequential_probability_ratio_test">SPRT</a> can be a solution.</p>
+
+ <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/2.jpg" id="image" /> 
+ </div>
+
+
+<style type="text/css">
+    #image {width: 85%; }
+    #text { text-align: center; color: grey; font-size: small}    
+</style>
+<h2 id="觅食路上">觅食路上</h2>
+<p>太浩湖位于加州和内华达州的交界处，South Lake Tahoe的内华达州一侧充满了当地特色—赌场酒店，地狱厨神Gorden Ramsay的餐厅也开在其中一家。在朋友圈里看到了不少惠灵顿牛排的我们食指大动，驱车前往。盘山的公路并不好开，眼前的景色绝对不虚此行—变幻莫测的云，藏在松柏之下忽然出现的湖—一路上我们充满了惊叹，或惊叹眼前的连环弯道，或惊叹弯道尽头突然出现的湛蓝湖水。
+
+
+ <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/3.jpg" id="image" /> 
+ </div>
+
+  <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/4.jpg" id="image" /> 
+ </div>
+
+
+
+<style type="text/css">
+    #image {width: 85%; }
+    #text { text-align: center; color: grey; font-size: small}    
+</style></p>
+<p>这次出行的有一重大失策是高估了太浩湖北边生活的便利程度，doordash、uber eats还没有很好的覆盖这一区域，下雪天的晚上出门觅食真的有些麻烦。冬天来，备好火锅绝对是上上之选。</p>
+<h2 id="忽如一夜春风来千树万树梨花开">忽如一夜春风来，千树万树梨花开</h2>
+<p>头天晚上下了一整夜的雪，带着对堆雪人的期盼，早上一睁眼就掀开了窗帘，望着外面的银装素裹，作为一个南方人，迫不及待地想出门在雪地上留下第一串脚印。可惜人算不如天算，我还没有来得及出门，度假村的工作人员就已经特别负责地把路给清了出来了，让我无限悔恨没能早点起床。走！去湖边—彼时我心中只有这一个想法。带上帽子、手套，围上围巾，全副武装的我兴冲冲地出门了。</p>
+<p>走过长长地走道，小心翼翼地避开地上的水洼，战战兢兢地踩过一片不知深浅的雪地，再一抬头，仿佛自己穿过了通往纳尼亚的衣橱来到了一个新的世界。地上的雪、天上的云一起包裹住连成一片的蓝天碧水，好一副冰雪世界。</p>
+
+
+ <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/5.jpg" id="image" /> 
+ </div>
+
+  <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/7.jpg" id="image" /> 
+ </div>
+
+   <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/6.jpg" id="image" /> 
+ </div>
+
+
+
+<style type="text/css">
+    #image {width: 85%; }
+    #text { text-align: center; color: grey; font-size: small}    
+</style>
+<h2 id="留些遗憾">留些遗憾</h2>
+<p>本来打算最后一天先去Emerald Bay，可惜突降暴雪，开往Emerald Bay也都是山路，没有装雪链的我们只能望而却步。不过旅行就是这样，总要留些念想给下次。不用匆匆忙忙，走走停停才能更好地欣赏这个世界。</p>
+
+
+ <div id="container"> 
+     <img src="https://raw.githubusercontent.com/roofkitty/blog_images/master/8.jpg" id="image" /> 
+ </div>
+
+
+<style type="text/css">
+    #image {width: 85%; }
+    #text { text-align: center; color: grey; font-size: small}    
+</style>
 
 
                 
@@ -267,15 +316,10 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2020/10/15/crucial-conversation-notes/" data-toggle="tooltip" data-placement="top" title="Crucial Conversation">&larr;
+                        <a href="/2020/12/13/bay-area-stroll-guide/" data-toggle="tooltip" data-placement="top" title="Bay area stroll -- A guide to explore peninsula">&larr;
                             Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2020/11/30/interference-a-common-pitfall-in-randomization/" data-toggle="tooltip" data-placement="top" title="Interference: A common pitfall in randomization">Next
-                            Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
